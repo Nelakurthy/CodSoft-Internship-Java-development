@@ -1,0 +1,74 @@
+TASK 1 : NUMBER GAME
+1. Generate a random number within a specified range, such as 1 to 100.
+2. Prompt the user to enter their guess for the generated number.
+3. Compare the user's guess with the generated number and provide feedback on whether the guess
+is correct, too high, or too low.
+4. Repeat steps 2 and 3 until the user guesses the correct number.
+
+CODE : 
+import java.util.Scanner;
+import java.util.Random;
+public class NumberGuessingGame 
+{
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+        int minRange = 1;
+        int maxRange = 100;
+        int score = 0;
+        boolean playAgain = true;
+        System.out.println("Welcome to the Number Guessing Game!");
+        while (playAgain) 
+        {
+            int generatedNumber = random.nextInt(maxRange - minRange + 1) + minRange;
+            int attempts = 0;
+            boolean guessedCorrectly = false;
+            System.out.println("\nI've picked a number between " + minRange + " and " + maxRange + ".");
+            while (!guessedCorrectly) 
+            {
+                System.out.print("Enter your guess: ");
+                int userGuess = sc.nextInt();
+                attempts++;
+                if (userGuess < generatedNumber) 
+                {
+                    if (generatedNumber - userGuess > 20) 
+                    {
+                        System.out.println("Very low! Try a much higher number.");
+                    } 
+                    else 
+                    {
+                        System.out.println("Low! Try a higher number.");
+                    }
+                } 
+                else if (userGuess > generatedNumber) 
+                {
+                    if (userGuess - generatedNumber > 20) 
+                    {
+                        System.out.println("Very high! Try a much lower number.");
+                    }
+                    else 
+                    {
+                        System.out.println("High! Try a lower number.");
+                    }
+                } 
+                else
+                {
+                    System.out.println("Congratulations! You've guessed the number " + generatedNumber + " correctly in " + attempts + " attempts.");
+                    guessedCorrectly = true;
+                    score += attempts;
+                }
+            }
+            System.out.print("Do you want to play again? (yes/no): ");
+            String playChoice = sc.next().toLowerCase();
+            if (!playChoice.equals("yes")) 
+            {
+                playAgain = false;
+            }
+        }
+        System.out.println("\nGame over. Your total score is: " + score);
+        sc.close();
+    }
+}
+
+OUTPUT:
